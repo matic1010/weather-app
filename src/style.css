@@ -11,6 +11,7 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  background-color: aliceblue;
 }
 
 h1 {
@@ -42,19 +43,27 @@ main {
 }
 
 .weather-display {
+  margin-top: 32px;
   width: 65vw;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 16px;
 }
 
 .weather-card {
-  margin-top: 32px;
   border: 1px solid black;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.weather-card h2 {
+  font-size: 1.6rem;
+}
+
+.temperature {
+  font-size: 1.4rem;
 }
 
 .sunny {
@@ -63,6 +72,11 @@ main {
 
 .cloudy {
   background-color: grey;
+  color: white;
+}
+
+.rainy {
+  background-color: rgb(0, 0, 150);
   color: white;
 }
 

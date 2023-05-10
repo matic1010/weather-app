@@ -7,6 +7,7 @@ export default function WeatherCard(location, temperature, condition, isDay) {
     location.charAt(0).toUpperCase() + location.slice(1);
   cityTitle.textContent = capitalizedLocation;
   const temperatureText = document.createElement("p");
+  temperatureText.classList.add("temperature");
   temperatureText.textContent = `${temperature} °C`;
   const conditionText = document.createElement("p");
   conditionText.textContent = condition;
@@ -24,6 +25,7 @@ function getClassNameFromCondition(condition, isDay) {
     )
       return "cloudy";
     if (condition.toLowerCase().includes("sunny")) return "sunny";
+    if (condition.toLowerCase().includes("rain")) return "rainy";
   } else {
     return "night";
   }
