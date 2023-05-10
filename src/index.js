@@ -1,16 +1,28 @@
+import WeatherCard from "./components/WeatherCard";
+import "./style.css";
+
 const mainContainer = document.querySelector("main");
 const weatherDisplay = document.querySelector(".weather-display");
 const searchInput = document.getElementById("city-search");
 const searchButton = document.getElementById("search-button");
 
-searchButton.addEventListener("click", (e) => {
+searchButton.addEventListener("click", handleSearch);
+
+searchInput.addEventListener("keyup", (e) => {
+  if (e.key === "Enter") {
+    handleSearch();
+  }
+});
+
+function handleSearch() {
   const searchTerm = searchInput.value;
   if (searchTerm) {
     renderWeatherInfo(searchTerm);
   } else {
     console.log("Please enter a city!");
   }
-});
+  searchInput.value = "";
+}
 
 async function getWeatherData(location) {
   const response = await fetch(
@@ -20,6 +32,7 @@ async function getWeatherData(location) {
     }
   );
   const data = await response.json();
+  console.log(data);
   return data;
 }
 
@@ -29,14 +42,18 @@ async function processWeatherData(location) {
     location,
     temp: weatherData.current.temp_c,
     condition: weatherData.current.condition.text,
+    isDay: weatherData.current.is_day,
   };
   return weatherObject;
 }
 
 async function renderWeatherInfo(location) {
-  weatherDisplay.innerHTML = "";
   const weather = await processWeatherData(location);
-  const weatherDescription = document.createElement("p");
-  weatherDescription.textContent = `Current weather in ${location}: ${weather.temp} degrees Celsius, ${weather.condition}`;
-  weatherDisplay.appendChild(weatherDescription);
+  const card = WeatherCard(
+    weather.location,
+    weather.temp,
+    weather.condition,
+    weather.isDay
+  );
+  weatherDisplay.appendChild(card);
 }
